@@ -16,6 +16,7 @@ public class Product {
     @Column(name="id")
     private int id;
 
+    //is just for mapping, not returned in the API
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private ProductCategory productCategory;
