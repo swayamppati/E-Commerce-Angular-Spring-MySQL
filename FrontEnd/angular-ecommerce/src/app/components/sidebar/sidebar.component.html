@@ -1,1 +1,26 @@
-<p>sidebar works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <span class="fs-4">Shop By Category:</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a routerLink="/category/1" routerLinkActive="active-link" class="nav-link text-white" aria-current="page">Books</a>
+            </li>
+            <li>
+                <a routerLink="/category/2" routerLinkActive="active-link" class="nav-link text-white" aria-current="page">Coffee Mug</a>
+            </li>
+        </ul>
+        <hr>
+    </div>
+</body>
+</html>
+

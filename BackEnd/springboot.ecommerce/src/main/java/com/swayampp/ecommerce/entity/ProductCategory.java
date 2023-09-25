@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="product_categories")
-//@Data -- known bug when using Relationships like @OnetoMany and @ManytoOne
+//@Data -- known bug when using Relationships like @OneToMany and @ManyToOne
 @Getter
 @Setter
 public class ProductCategory {

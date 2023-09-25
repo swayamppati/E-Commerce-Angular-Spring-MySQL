@@ -10,6 +10,14 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 
+import { RouterModule, Routes } from '@angular/router';
+const routes: Routes = [
+  {path: 'category/:id', component: ProductListComponent},
+  {path: 'products', component: ProductListComponent},
+  {path: '', redirectTo: '/products', pathMatch: 'full'},
+  {path: '**', redirectTo: '/products', pathMatch: 'full'}
+]
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +29,8 @@ import { FooterComponent } from './components/footer/footer.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(routes),
   ],
   providers: [ProductService],
   bootstrap: [AppComponent]

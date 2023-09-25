@@ -2,12 +2,13 @@
   <div class="row border">
     <app-header></app-header> 
   </div>
-  <div class="row border">
-    <div class="col-md-2 border">
+  <div class="row">
+    <div class="col-md-2 shadow p-3 mb-5 rounded sidebar">
       <app-sidebar></app-sidebar>
     </div> 
-    <div class="col border">
-      <app-product-list></app-product-list>
+    <div class="col">
+      <router-outlet></router-outlet>
+      <!-- <app-product-list></app-product-list> -->
     </div> 
   </div>
   <div class="row border">

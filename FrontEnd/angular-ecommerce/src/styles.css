@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 * {
-    background-color: #222222;
+    background-color: #113333;
     color: #cccccc;
+}
+.sidebar, .sidebar *{
+    background-color: #151515;
 }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Category } from 'src/app/common/category';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  categories: Category[] = [];
+
+  constructor(
+    private categoryService: CategoryService
+  ) { }
 
   ngOnInit(): void {
+    this.getCategoryList();
+  }
+
+  getCategoryList(): void {
+    this.categoryService.getCategoryList().subscribe(
+      data => {
+        this.categories=data;
+      }
+    )
   }
 
 }
