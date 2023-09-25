@@ -1,0 +1,12 @@
+.item-name {
+    font-size: smaller;
+    text-align: left;
+}
+.btn-add {
+    color: white;
+    background-color: #2222AA;
+}
+.product-img {
+    max-width: 70%;
+    height: auto;
+}

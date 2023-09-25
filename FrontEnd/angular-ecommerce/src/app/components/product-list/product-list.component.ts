@@ -10,6 +10,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductListComponent implements OnInit {
 
   products: Product[] = [];
+  rows: number[] = [1,2];
 
   constructor(
     private _productService: ProductService
@@ -26,4 +27,5 @@ export class ProductListComponent implements OnInit {
       }
     )
   }
+
 }
