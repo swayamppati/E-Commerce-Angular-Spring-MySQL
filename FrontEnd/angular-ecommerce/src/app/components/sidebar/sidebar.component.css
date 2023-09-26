@@ -1,3 +1,7 @@
+a:hover {
+    background-color: #1F1F1F;
+}
+
 .active-link {
-    background-color: #000000;
+    background-color: #000000 !important;
 }

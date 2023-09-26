@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/common/product';
 import { ProductService } from 'src/app/services/product.service';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-product-list',
@@ -14,7 +15,7 @@ export class ProductListComponent implements OnInit {
   currentCategoryId: number = 1;
 
   constructor(
-    private _productService: ProductService,
+    private productService: ProductService,
     private route: ActivatedRoute
   ) { }
 
@@ -34,7 +35,7 @@ export class ProductListComponent implements OnInit {
       this.currentCategoryId = 1;
     }
 
-    this._productService.getProductList(this.currentCategoryId).subscribe(
+    this.productService.getProductList(this.currentCategoryId).subscribe(
       data => {
         this.products = data;
       }

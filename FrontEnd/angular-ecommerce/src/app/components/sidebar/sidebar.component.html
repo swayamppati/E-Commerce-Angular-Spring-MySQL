@@ -12,11 +12,9 @@
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-                <a routerLink="/category/1" routerLinkActive="active-link" class="nav-link text-white" aria-current="page">Books</a>
-            </li>
-            <li>
-                <a routerLink="/category/2" routerLinkActive="active-link" class="nav-link text-white" aria-current="page">Coffee Mug</a>
+            <li class="nav-item"
+                *ngFor="let productCategory of productCategories">
+                <a routerLink="/category/{{ productCategory.id }}" routerLinkActive="active-link" class="nav-link link-info" aria-current="page">{{ productCategory.categoryName }}</a>
             </li>
         </ul>
         <hr>
