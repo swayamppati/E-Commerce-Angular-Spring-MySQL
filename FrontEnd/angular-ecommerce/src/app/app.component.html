@@ -1,17 +1,16 @@
-<div class="container-fluid">
-  <div class="row border">
-    <app-header></app-header> 
+<div class="container-fluid ps-0">
+
+  <div class="row mb-5">
+    <app-header></app-header>
   </div>
+
   <div class="row">
-    <div class="col-md-2 shadow p-3 mb-5 rounded sidebar">
+    <div class="col-md-2">
       <app-sidebar></app-sidebar>
-    </div> 
-    <div class="col">
+    </div>
+
+    <div class="col container-fluid">
       <router-outlet></router-outlet>
-      <!-- <app-product-list></app-product-list> -->
-    </div> 
-  </div>
-  <div class="row border">
-    <app-footer></app-footer> 
+    </div>
   </div>
 </div>

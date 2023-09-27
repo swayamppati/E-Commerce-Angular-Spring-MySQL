@@ -12,6 +12,7 @@ import { FooterComponent } from './components/footer/footer.component';
 
 import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
+  {path: 'products/:keyword', component: ProductListComponent},
   {path: 'category/:id', component: ProductListComponent},
   {path: 'products', component: ProductListComponent},
   {path: '', redirectTo: '/products', pathMatch: 'full'},
@@ -24,7 +25,7 @@ const routes: Routes = [
     ProductListComponent,
     HeaderComponent,
     SidebarComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

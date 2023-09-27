@@ -17,11 +17,21 @@ export class ProductService {
     private _httpClient: HttpClient
   ) { }
 
-  getProductList(currentCategoryId: number): Observable<Product[]> {
-
+  getProductsByCategory(currentCategoryId: number): Observable<Product[]> {
     let searchUrl = `${this.productsBaseUrl}/search/findByProductCategoryId?id=${currentCategoryId}`;
-    console.log(searchUrl);
+    console.log(`Search Product by Category URL: ${searchUrl}`);
 
+    return this.getProducts(searchUrl);
+  }
+
+  getProductsByName(keyword: string): Observable<Product[]> {
+    let searchUrl =`${this.productsBaseUrl}/search/findByNameContaining?keyword=${keyword}`;
+    console.log(`Search Product by Keyword URL: ${searchUrl}`);
+
+    return this.getProducts(searchUrl);
+  }
+
+  getProducts(searchUrl: string): Observable<Product[]> {
     return this._httpClient.get<GetResponseProducts>(searchUrl).pipe(
       map(response => response._embedded.products)
     );

@@ -1,8 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
-* {
+body {
     background-color: #113333;
     color: #cccccc;
 }
+
+.sidebar {
+    position:fixed;
+    height:100%;
+    padding-top: 3%;
+}
+
 .sidebar, .sidebar *{
     background-color: #151515;
+}
+
+.header {
+    position:fixed;
+    width: 100%;
+    padding: 0;
+    z-index: 3;
 }
