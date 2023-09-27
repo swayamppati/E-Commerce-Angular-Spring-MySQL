@@ -11,7 +11,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 import { RouterModule, Routes } from '@angular/router';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 const routes: Routes = [
+  {path: 'product/:id/:catId', component: ProductDetailsComponent},
   {path: 'products/:keyword', component: ProductListComponent},
   {path: 'category/:id', component: ProductListComponent},
   {path: 'products', component: ProductListComponent},
@@ -26,6 +28,7 @@ const routes: Routes = [
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,

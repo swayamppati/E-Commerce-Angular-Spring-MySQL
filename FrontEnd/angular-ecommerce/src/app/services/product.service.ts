@@ -37,6 +37,13 @@ export class ProductService {
     );
   }
 
+  getProductById(id: number): Observable<Product> {
+    let searchUrl =`${this.productsBaseUrl}/${id}`;
+    console.log(`Search Product by ID URL: ${searchUrl}`);
+
+    return this._httpClient.get<Product>(searchUrl);
+  }
+
   getProductCategoryList(): Observable<ProductCategory[]> {
     return this._httpClient.get<GetResponseProductCategories>(this.productCategoriesBaseUrl).pipe(
       map(response => response._embedded.productCategories)

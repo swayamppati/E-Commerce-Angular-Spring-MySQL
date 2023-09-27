@@ -1,0 +1,13 @@
+.btn-add {
+    color: white;
+    background-color: #112222;
+}
+
+.btn-add:hover {
+    background-color: #111111;
+}
+
+.product-img {
+    max-width: 70%;
+    height: auto;
+}
