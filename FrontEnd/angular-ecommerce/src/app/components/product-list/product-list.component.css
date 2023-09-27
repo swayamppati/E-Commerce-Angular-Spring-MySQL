@@ -19,3 +19,11 @@
     max-width: 70%;
     height: auto;
 }
+
+.content {
+    height: 93vh;
+}
+
+:host ::ng-deep .pagination > li.page-item.active > a.page-link > span {
+    display: none;
+}

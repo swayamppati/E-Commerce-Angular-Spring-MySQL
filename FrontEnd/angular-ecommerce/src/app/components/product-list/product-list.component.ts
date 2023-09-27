@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/common/product';
 import { ProductService } from 'src/app/services/product.service';
-import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-product-list',
@@ -13,8 +12,16 @@ export class ProductListComponent implements OnInit {
 
   products: Product[] = [];
 
+  //properties for pagination
+  pageSize: number = 8;
+  totalElements: number = 0;
+  totalPages: number = 1;
+  pageNumber: number = 1;
+
+  prevCategoryId: number = 1;
   currentCategoryId: number = 1;
 
+  prevKeyword: string = "";
   keyword: string = "";
 
   constructor(
@@ -37,10 +44,12 @@ export class ProductListComponent implements OnInit {
     console.log(this.route.snapshot.toString());
 
     if(this.route.snapshot.paramMap.has('keyword'))
-      this.getProductsByName();
+      // this.getProductsByName();
+      this.getProductsByNamePaginate();
 
     else
-      this.getProductsByCategory();
+      // this.getProductsByCategory();
+      this.getProductsByCategoryPaginate();
  
   }
 
@@ -58,10 +67,58 @@ export class ProductListComponent implements OnInit {
     console.log(this.route.snapshot.params);
     if(this.route.snapshot.paramMap.has('id'))
       this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!;
+
     this.productService.getProductsByCategory(this.currentCategoryId).subscribe(
       data => {
         this.products = data;
       }
     );
   }
+
+  /**
+   * Methods with Pagination Support
+   */
+  getProductsByNamePaginate(): void {
+    this.keyword = this.route.snapshot.paramMap.get('keyword')!;
+
+    if(this.prevKeyword != this.keyword)
+      this.pageNumber=1;
+    this.prevKeyword=this.keyword
+
+    this.productService.getProductsByNamePaginate(
+      this.keyword,
+      this.pageNumber - 1,
+      this.pageSize).subscribe(this.processResponseData());
+  }
+
+  getProductsByCategoryPaginate(): void {
+    if(this.route.snapshot.paramMap.has('id')) //required when you are providing no id for category(coming back from somewhere)
+      this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!;
+
+    if(this.prevCategoryId!=this.currentCategoryId)
+     this.pageNumber=1;
+    this.prevCategoryId=this.currentCategoryId
+
+    this.productService.getProductsByCategoryPaginate(
+      this.currentCategoryId, 
+      this.pageNumber - 1, 
+      this.pageSize).subscribe(this.processResponseData());
+  }
+
+  processResponseData() {
+    return (data:any) => {
+      this.products = data._embedded.products;
+      this.pageSize = data.page.size;
+      this.totalElements = data.page.totalElements;
+      this.totalPages = data.page.totalPages;
+      this.pageNumber = data.page.number + 1;
+    }
+  }
+
+  updatePageSize(pageSizeSelect: string): void {
+    this.pageSize = +pageSizeSelect;
+    this.pageNumber = 1;
+    this.getProductList();
+  }
+
 }

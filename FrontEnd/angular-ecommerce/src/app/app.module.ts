@@ -12,6 +12,9 @@ import { FooterComponent } from './components/footer/footer.component';
 
 import { RouterModule, Routes } from '@angular/router';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 const routes: Routes = [
   {path: 'product/:id/:catId', component: ProductDetailsComponent},
   {path: 'products/:keyword', component: ProductListComponent},
@@ -28,13 +31,15 @@ const routes: Routes = [
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
+    NgbModule,
   ],
   providers: [ProductService],
   bootstrap: [AppComponent]

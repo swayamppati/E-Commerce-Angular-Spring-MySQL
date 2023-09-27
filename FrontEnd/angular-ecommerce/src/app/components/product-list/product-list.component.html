@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="ps-4">
+    <div class="ps-4 d-flex flex-column content">
         <div class="row justify-content-evenly">
             <div class="col-md-3 col-sm-4 col-xs-12 d-flex flex-column my-5" *ngFor="let product of products" >
                     <a routerLink="/product/{{ product.id }}/{{ currentCategoryId }}" class="text-decoration-none">
@@ -19,12 +19,43 @@
                     </div>
             </div>
         </div>
+
         <!--Display a message if No Products Found-->
         <h2 *ngIf="products?.length == 0"
         class="col-md-12 p-5"
         role="alert">
             No Products Found...
         </h2>
+
+        <!--Pagination-> works directly synced with the variables in the component, not as a separate component -->
+        <!--
+            Keep Pagination independent of search by name or category as it doesn't change the whole URL
+            just Changes the parameters
+        -->
+        <div class="container-fluid d-flex mt-auto justify-content-end">
+            <ngb-pagination [(page)]="pageNumber"
+                            [pageSize]="pageSize"
+                            [collectionSize]="totalElements"
+                            [ellipses]="true"
+                            [maxSize]="5"
+                            (pageChange)="getProductList()">
+
+            </ngb-pagination>
+
+            <div ngbDropdown class="d-inline-block ms-3">
+                Page Size:
+                <select class="btn btn-primary" 
+                #pageSizeSelect
+                (change)="updatePageSize(pageSizeSelect.value)"
+                >
+                    <option>4</option>
+                    <option selected="true">8</option>
+                    <option>10</option>
+                    <option>20</option>
+                </select>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>
