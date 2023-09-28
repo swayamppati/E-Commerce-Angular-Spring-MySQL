@@ -1,18 +1,28 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
+/**
+ * Components (Declarations)
+ */
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
 import { ProductListComponent } from './components/product-list/product-list.component';
-import { ProductService } from './services/product.service';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-
-import { RouterModule, Routes } from '@angular/router';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+
+/**
+ * Node Modules
+ */
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+/**
+ * Service Providers
+ */
+import { ProductService } from './services/product.service';
 
 
 const routes: Routes = [
@@ -32,6 +42,7 @@ const routes: Routes = [
     SidebarComponent,
     FooterComponent,
     ProductDetailsComponent,
+    SearchBarComponent,
 
   ],
   imports: [
@@ -41,7 +52,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     NgbModule,
   ],
-  providers: [ProductService],
+  providers: [ProductService, CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

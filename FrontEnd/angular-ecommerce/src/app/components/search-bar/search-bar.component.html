@@ -1,0 +1,12 @@
+<!--Called function on keyup as would do normally-->
+<div class="container-fluid input-group">
+    <input type="search" class="form-control rounded" placeholder="Search for Products"
+    #keyword
+    (keyup)="getSearchInput(keyword.value)"
+    />
+    <button 
+        class="btn btn-success" type="submit"
+        (click)="getSearchInput(keyword.value)">
+        Search
+    </button>
+</div>

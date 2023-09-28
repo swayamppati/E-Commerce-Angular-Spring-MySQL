@@ -8,17 +8,19 @@
 <body>
     <div class="container-fluid header">
         <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-            <div class="container-fluid input-group ms-3">
-                <a class="navbar-brand-lg mx-5" href="#">
-                    <img src="/assets/images/SwayamLogoLight.png" alt="Logo" width="80" height="50">
-                </a>
-                <input type="search" class="form-control rounded ms-5" placeholder="Search for Products"
-                #getProductsByNameInput
-                (keyup)="getProductsByName(getProductsByNameInput.value)"
-                />
-                <button class="btn btn-success" type="submit"
-                (onClick)="getProductsByName(getProductsByNameInput.value)"
-                >Search</button>    
+            <div class="container-fluid d-flex ms-3">
+                <div class="col-md-2">
+                    <a class="navbar-brand-lg ms-3 me-5" href="#">
+                        <img src="/assets/images/SwayamLogoLight.png" alt="Logo" width="80" height="50">
+                    </a>
+                </div>
+
+                <!--Here the magic of event binding is done(event emitted by EventEmitter from child)-->
+                <app-search-bar
+                (keywordEmitter)="getProductsByName($event)"
+                class="col-6">
+                </app-search-bar>
+
             </div>
         </nav>
     </div>
