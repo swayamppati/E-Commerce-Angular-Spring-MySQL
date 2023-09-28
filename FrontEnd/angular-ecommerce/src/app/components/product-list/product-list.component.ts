@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/common/product';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -26,10 +27,12 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
+    private cartService: CartService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    console.log("Product List Component Created");
     //Once data recieved from subscription, execute body inside
     //When I commented out the subscription, the products didn't change on category change.
     //=> ProductListComponent got created only once
@@ -37,11 +40,12 @@ export class ProductListComponent implements OnInit {
     this.route.paramMap.subscribe(() => {
       this.getProductList();
     })
+    // this.getTotals();
   }
 
   getProductList() {
     //get current id from subscribed object
-    console.log(this.route.snapshot.toString());
+    // console.log(this.route.snapshot.toString());
 
     if(this.route.snapshot.paramMap.has('keyword'))
       // this.getProductsByName();
@@ -54,7 +58,7 @@ export class ProductListComponent implements OnInit {
   }
 
   getProductsByName(): void {
-    console.log(this.route.snapshot.params);
+    // console.log(this.route.snapshot.params);
     this.keyword = this.route.snapshot.paramMap.get('keyword')!;
     this.productService.getProductsByName(this.keyword).subscribe(
       data => {
@@ -64,7 +68,7 @@ export class ProductListComponent implements OnInit {
   }
 
   getProductsByCategory(): void {
-    console.log(this.route.snapshot.params);
+    // console.log(this.route.snapshot.params);
     if(this.route.snapshot.paramMap.has('id'))
       this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!;
 
@@ -119,6 +123,27 @@ export class ProductListComponent implements OnInit {
     this.pageSize = +pageSizeSelect;
     this.pageNumber = 1;
     this.getProductList();
+  }
+
+  /**
+   * Cart Handlers
+   */
+  addToCart(product: Product): void {
+    console.log(`${product.name} added`);
+    this.cartService.addToCart(product);
+  }
+
+  removeFromCart(id: number): void {
+    console.log(`${id} removed`);
+    this.cartService.removeFromCart(id);
+  }
+
+  isAdded(id: number): boolean {
+    return this.cartService.qtyMap.has(id);
+  }
+
+  getQuantity(id: number): boolean {
+    return this.cartService.qtyMap.get(id);
   }
 
 }

@@ -7,6 +7,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { CartStatusComponent } from './components/cart-status/cart-status.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 /**
@@ -23,6 +24,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
  * Service Providers
  */
 import { ProductService } from './services/product.service';
+import { CartService } from './services/cart.service';
 
 
 const routes: Routes = [
@@ -42,6 +44,7 @@ const routes: Routes = [
     SidebarComponent,
     FooterComponent,
     ProductDetailsComponent,
+    CartStatusComponent,
     SearchBarComponent,
 
   ],

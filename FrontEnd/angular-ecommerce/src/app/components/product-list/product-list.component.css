@@ -21,9 +21,14 @@
 }
 
 .content {
-    height: 93vh;
+    height: 90vh;
 }
 
 :host ::ng-deep .pagination > li.page-item.active > a.page-link > span {
     display: none;
+}
+
+.qtyButtons {
+    display: inline-block;
+    color: white !important;
 }

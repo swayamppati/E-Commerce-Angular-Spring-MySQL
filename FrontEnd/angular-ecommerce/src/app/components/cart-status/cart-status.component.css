@@ -1,0 +1,9 @@
+span:nth-child(2) {
+    border-top-left-radius: 0% !important;
+    border-bottom-left-radius: 0% !important;
+}
+
+.fa {
+    color: white;
+    font-size: x-large;
+}

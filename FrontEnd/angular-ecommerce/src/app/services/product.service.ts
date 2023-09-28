@@ -17,6 +17,10 @@ export class ProductService {
     private httpClient: HttpClient
   ) { }
 
+  ngOnInit(): void {
+    console.log("Product Service Object Created\n");
+  }
+
   /**
    * Methods for Getting Products
    */
@@ -70,7 +74,8 @@ export class ProductService {
                     + `?id=${currentCategoryId}`
                     + `&page=${pageNumber}`
                     + `&size=${pageSize}`;
-    console.log(`Search Product by Category URL: ${searchUrl}`);
+
+    // console.log(`Search Product by Category URL: ${searchUrl}`);
 
     return this.httpClient.get<GetResponseProductsPaginate>(searchUrl);
   }
@@ -83,7 +88,7 @@ export class ProductService {
                   + `&page=${pageNumber}`
                   + `&size=${pageSize}`;
 
-    console.log(`Search Product by Keyword URL: ${searchUrl}`);
+    // console.log(`Search Product by Keyword URL: ${searchUrl}`);
 
     return this.httpClient.get<GetResponseProductsPaginate>(searchUrl);
   }
