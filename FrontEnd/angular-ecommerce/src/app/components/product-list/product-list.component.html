@@ -15,25 +15,11 @@
                     </a>
                     <div class="border-top pt-2">
                         <span><small>{{ product.unitPrice | currency:'INR' }}</small></span><br>
-                        <div class="d-flex align-items-center mt-2 pt-1">
-                            <button
-                                class="btn btn-add btn-sm"
-                                (click)="addToCart(product)">
-                                Add to Cart
-                            </button>
-                            <div class="qtyButtons ms-2"
-                                *ngIf="isAdded(product.id)">
-                                <button class="btn btn-sm btn-outline-info py-0">{{ this.getQuantity(product.id) }}</button>
-                                <button class="btn py-0"
-                                    (click)="addToCart(product)">
-                                    <i class="fa-solid fa-plus fa-xs" style="color: #ffffff;"  aria-hidden="true"></i> 
-                                </button>
-                                <button class="btn py-0"
-                                    (click)="removeFromCart(product.id)"> 
-                                    <i class="fa-solid fa-minus fa-xs" style="color: #ffffff;"  aria-hidden="true"></i> 
-                                </button>
-                            </div>
-                        </div>
+                        
+                        <app-add-buttons
+                            [product]="product">
+                        </app-add-buttons>
+                        
                     </div>
             </div>
         </div>

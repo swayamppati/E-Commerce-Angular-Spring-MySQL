@@ -124,26 +124,4 @@ export class ProductListComponent implements OnInit {
     this.pageNumber = 1;
     this.getProductList();
   }
-
-  /**
-   * Cart Handlers
-   */
-  addToCart(product: Product): void {
-    console.log(`${product.name} added`);
-    this.cartService.addToCart(product);
-  }
-
-  removeFromCart(id: number): void {
-    console.log(`${id} removed`);
-    this.cartService.removeFromCart(id);
-  }
-
-  isAdded(id: number): boolean {
-    return this.cartService.qtyMap.has(id);
-  }
-
-  getQuantity(id: number): boolean {
-    return this.cartService.qtyMap.get(id);
-  }
-
 }

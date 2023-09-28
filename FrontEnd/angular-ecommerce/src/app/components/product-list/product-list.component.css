@@ -6,15 +6,6 @@
     text-decoration: none;
 }
 
-.btn-add {
-    color: white;
-    background-color: #112222;
-}
-
-.btn-add:hover {
-    background-color: #111111;
-}
-
 .product-img {
     max-width: 70%;
     height: auto;
@@ -26,9 +17,4 @@
 
 :host ::ng-deep .pagination > li.page-item.active > a.page-link > span {
     display: none;
-}
-
-.qtyButtons {
-    display: inline-block;
-    color: white !important;
 }

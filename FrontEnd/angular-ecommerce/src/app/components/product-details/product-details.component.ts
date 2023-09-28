@@ -37,13 +37,4 @@ export class ProductDetailsComponent implements OnInit {
       }
     );
   }
-
-  /**
-   * Add to Card Handler
-   */
-  addToCart(product: Product): void {
-    console.log(`${product.name} added`);
-    this.cartService.addToCart(product);
-  }
-
 }

@@ -25,6 +25,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
  */
 import { ProductService } from './services/product.service';
 import { CartService } from './services/cart.service';
+import { AddButtonsComponent } from './components/add-buttons/add-buttons.component';
 
 
 const routes: Routes = [
@@ -46,6 +47,7 @@ const routes: Routes = [
     ProductDetailsComponent,
     CartStatusComponent,
     SearchBarComponent,
+    AddButtonsComponent,
 
   ],
   imports: [

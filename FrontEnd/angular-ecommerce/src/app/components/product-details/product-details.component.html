@@ -12,11 +12,11 @@
             <h2>{{ product.name }}</h2>
             <div class="pt-2">
                 <span><small>{{ product.unitPrice | currency:'INR' }}</small></span><br>
-                <button
-                    class="btn btn-add btn-sm mt-2"
-                    (click)="addToCart(product)">
-                    Add to Cart
-                </button>
+
+                <app-add-buttons
+                    [product]="product">
+                </app-add-buttons>
+                
                 <hr>
                 <h3>Description</h3>
                 <p>{{ product.desc }}</p> <br><br>
