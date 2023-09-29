@@ -10,8 +10,7 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class CartComponent implements OnInit {
 
-  productMap = new Map();
-  qtyMap = new Map();
+  productQtyMap = new Map();
 
   idArray: number[] = [];
 
@@ -29,26 +28,15 @@ export class CartComponent implements OnInit {
 
   getCartItems(): void {
     //Maps are assigned by reference
-    this.productMap = this.cartService.productMap;
-    this.qtyMap = this.cartService.qtyMap;
-
-    this.idArray = [...this.productMap.keys()];
+    this.productQtyMap = this.cartService.productQtyMap;
   }
 
   getTotals(): void {
     this.cartService.totalQty.subscribe(data => { this.totalQty = data; });
     this.cartService.totalPrice.subscribe(data => { this.totalPrice = data; });
 
+    //This component has subscribed lately, so triggered the Obervable Again.
     this.cartService.computeTotals();
-
-    console.log(`Total Qty: ${this.totalQty}`);
-    console.log(`Total Price: ${this.totalPrice}`);
-    console.log(...this.productMap.keys());
-  }
-
-  removeFromCart(id: number): void {
-    const index = this.idArray.indexOf(id, 0);
-    this.idArray.splice(index,1);
   }
 }
 

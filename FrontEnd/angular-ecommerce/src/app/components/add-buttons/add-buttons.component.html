@@ -2,20 +2,20 @@
     <button
         *ngIf="addButton"
         class="btn btn-add btn-sm"
-        (click)="addToCart(product)">
+        (click)="addToCart()">
         Add to Cart
     </button>
-    <div *ngIf="isAdded(product.id) || inCart"
+    <div *ngIf="isAdded() || inCart"
         class="qtyButtons ms-2">
 
-        <button *ngIf="qty" 
+        <button *ngIf="qtyDisplay" 
             [ngClass]="[qtyStyle]"
             class="btn btn-sm py-0">
-            {{ this.getQuantity(product.id) }}
+            {{ this.getQuantity() }}
         </button>
 
         <button class="btn py-0"
-            (click)="addToCart(product)">
+            (click)="addToCart()">
             <i class="fa-solid fa-plus fa-xs" 
                 [ngStyle]="{ color: color }" 
                 aria-hidden="true">
@@ -23,7 +23,7 @@
         </button>
 
         <button class="btn py-0"
-            (click)="decreamentFromCart(product.id)"> 
+            (click)="decreamentFromCart()"> 
             <i class="fa-solid fa-minus fa-xs" 
                 [ngStyle]="{ color: color }" 
                 aria-hidden="true">
@@ -32,7 +32,7 @@
 
         <button *ngIf="removeButton"
             class="btn btn-danger py-0"
-            (click)="removeFromCart(product.id)"> 
+            (click)="removeFromCart()"> 
             Remove
         </button>
 

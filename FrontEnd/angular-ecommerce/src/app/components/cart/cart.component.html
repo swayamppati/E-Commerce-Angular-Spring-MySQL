@@ -16,25 +16,24 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let id of idArray">
-                    <td><img src="{{ productMap.get(id).imageUrl }}" alt="" class="product-img"></td>
+                <tr *ngFor="let productQty of productQtyMap | keyvalue">
+                    <td><img src="{{ productQty.key.imageUrl }}" alt="" class="product-img"></td>
                     <td>
-                        <p>{{ productMap.get(id).name }}</p>
-                        <p>{{ productMap.get(id).unitPrice | currency:'INR' }}</p>
+                        <p>{{ productQty.key.name }}</p>
+                        <p>{{ productQty.key.unitPrice | currency:'INR' }}</p>
                     </td>
                     <td>
                         <p>Quantity:
                             <app-add-buttons
-                                [product]="productMap.get(id)"
+                                [product]="productQty.key"
                                 [inCart]="true"
                                 [qtyStyle]="'btn-outline-dark'"
                                 [addButton]="false"
                                 [color]="'black'"
-                                [removeButton]="true"
-                                (removeFromCartEmitter)="removeFromCart($event)">
+                                [removeButton]="true">
                             </app-add-buttons>
                         </p>
-                        <p>Subtotal: {{ productMap.get(id).unitPrice * qtyMap.get(id) | currency:'INR' }}</p>
+                        <p>Subtotal: {{ productQty.key.unitPrice * productQty.value | currency:'INR' }}</p>
                     </td>
                 </tr>
                 <tr>

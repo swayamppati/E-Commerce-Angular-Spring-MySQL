@@ -8,11 +8,8 @@ import { Subject } from 'rxjs';
 export class CartService implements OnInit{
 
   /** Dont need these to be static. :-) */
-  //Map of id -> Product
-  productMap = new Map()
-
-  //Map of id -> Quantity
-  qtyMap = new Map()
+  //Map of product -> qty
+  productQtyMap = new Map()
 
   //Emitters for their Observers
   totalQty: Subject<number> = new Subject<number>();
@@ -25,40 +22,42 @@ export class CartService implements OnInit{
   }
 
   addToCart(product: Product): void {
-    console.log(`add()`);
-    if(this.productMap.has(product.id))
-      this.qtyMap.set(product.id, this.qtyMap.get(product.id) + 1);
+    // console.log(`added:  ${product.id}`);
+    if(this.productQtyMap.has(product))
+      this.productQtyMap.set(product, this.productQtyMap.get(product) + 1);
     else {
-      this.productMap.set(product.id, product);
-      this.qtyMap.set(product.id, 1);
+      this.productQtyMap.set(product, 1);
     }
     this.computeTotals();
   }
 
-  decreamentFromCart(id: number): void {
-    if(this.qtyMap.get(id)>0) {
-      console.log(`removed`);
-      this.qtyMap.set(id, this.qtyMap.get(id) - 1);
-      /**
-       * Needed in Cart, don't delete. Refresh after Checkout or Logout
-      if(this.qtyMap.get(id)==0) {
-        this.qtyMap.delete(id);
-        this.productMap.delete(id);
-      }
-       */
-      this.computeTotals();
+  /**
+   * 
+   * Doesn't remove, just can decreament till 0.
+   */
+  decreamentFromCart(product: Product): void {
+    if(this.productQtyMap.get(product)>0) {
+      // console.log(`decreamented:  ${product.id}`);
+      this.productQtyMap.set(product, this.productQtyMap.get(product) - 1);
     }
     else
-      console.log(`remove NP`);
+      console.log(`decreament NP`);
+    this.computeTotals();
+  }
+
+  removeFromCart(product: Product): void {
+    while(this.productQtyMap.get(product)>0)
+      this.decreamentFromCart(product);
+    this.productQtyMap.delete(product);
   }
 
   computeTotals(): void {
-    console.log(`computeTotals()`);
+    // console.log(`computeTotals()`);
     let totalQty = 0;
     let totalPrice = 0;
-    for(let [id, product] of this.productMap) {
-      totalQty = totalQty + this.qtyMap.get(id);
-      totalPrice = totalPrice + this.qtyMap.get(id) * product.unitPrice;
+    for(let [product, qty] of this.productQtyMap) {
+      totalQty = totalQty + qty;
+      totalPrice = totalPrice + product.unitPrice * qty;
     }
 
     this.totalQty.next(totalQty);
