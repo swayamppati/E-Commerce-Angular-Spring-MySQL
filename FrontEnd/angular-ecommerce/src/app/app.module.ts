@@ -26,9 +26,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductService } from './services/product.service';
 import { CartService } from './services/cart.service';
 import { AddButtonsComponent } from './components/add-buttons/add-buttons.component';
+import { CartComponent } from './components/cart/cart.component';
 
 
 const routes: Routes = [
+  {path: 'cart', component: CartComponent},
   {path: 'product/:id/:catId', component: ProductDetailsComponent},
   {path: 'products/:keyword', component: ProductListComponent},
   {path: 'category/:id', component: ProductListComponent},
@@ -48,6 +50,7 @@ const routes: Routes = [
     CartStatusComponent,
     SearchBarComponent,
     AddButtonsComponent,
+    CartComponent,
 
   ],
   imports: [

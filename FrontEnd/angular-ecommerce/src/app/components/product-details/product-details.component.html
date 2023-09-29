@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="container-fluid pt-4" *ngIf="product">
+    <div class="container-fluid pt-3" *ngIf="product">
         <img src="{{ product.imageUrl}}" alt="" width="450px" height="350px">
         <div class="container-fluid ps-5">
             <h2>{{ product.name }}</h2>
@@ -19,7 +19,7 @@
                 
                 <hr>
                 <h3>Description</h3>
-                <p>{{ product.desc }}</p> <br><br>
+                <p>{{ product.desc }}</p> <br>
                 <a routerLink="/category/{{ catId }}">Back to Product List</a>
             </div>
         </div>

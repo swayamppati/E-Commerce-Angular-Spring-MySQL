@@ -25,6 +25,7 @@ export class CartService implements OnInit{
   }
 
   addToCart(product: Product): void {
+    console.log(`add()`);
     if(this.productMap.has(product.id))
       this.qtyMap.set(product.id, this.qtyMap.get(product.id) + 1);
     else {
@@ -34,16 +35,25 @@ export class CartService implements OnInit{
     this.computeTotals();
   }
 
-  removeFromCart(id: number): void {
-    this.qtyMap.set(id, this.qtyMap.get(id) - 1);
-    if(this.qtyMap.get(id)==0) {
-      this.qtyMap.delete(id);
-      this.productMap.delete(id);
+  decreamentFromCart(id: number): void {
+    if(this.qtyMap.get(id)>0) {
+      console.log(`removed`);
+      this.qtyMap.set(id, this.qtyMap.get(id) - 1);
+      /**
+       * Needed in Cart, don't delete. Refresh after Checkout or Logout
+      if(this.qtyMap.get(id)==0) {
+        this.qtyMap.delete(id);
+        this.productMap.delete(id);
+      }
+       */
+      this.computeTotals();
     }
-    this.computeTotals();
+    else
+      console.log(`remove NP`);
   }
 
   computeTotals(): void {
+    console.log(`computeTotals()`);
     let totalQty = 0;
     let totalPrice = 0;
     for(let [id, product] of this.productMap) {

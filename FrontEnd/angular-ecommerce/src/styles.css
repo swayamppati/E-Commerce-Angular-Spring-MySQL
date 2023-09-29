@@ -20,3 +20,8 @@ body {
     padding: 0;
     z-index: 3;
 }
+
+.product-img {
+    max-width: 70%;
+    height: auto;
+}

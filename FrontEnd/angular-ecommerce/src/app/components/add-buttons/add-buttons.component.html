@@ -1,19 +1,40 @@
 <div class="d-flex align-items-center mt-2 pt-1">
     <button
+        *ngIf="addButton"
         class="btn btn-add btn-sm"
         (click)="addToCart(product)">
         Add to Cart
     </button>
-    <div class="qtyButtons ms-2"
-        *ngIf="isAdded(product.id)">
-        <button class="btn btn-sm btn-outline-info py-0">{{ this.getQuantity(product.id) }}</button>
+    <div *ngIf="isAdded(product.id) || inCart"
+        class="qtyButtons ms-2">
+
+        <button *ngIf="qty" 
+            [ngClass]="[qtyStyle]"
+            class="btn btn-sm py-0">
+            {{ this.getQuantity(product.id) }}
+        </button>
+
         <button class="btn py-0"
             (click)="addToCart(product)">
-            <i class="fa-solid fa-plus fa-xs" style="color: #ffffff;"  aria-hidden="true"></i> 
+            <i class="fa-solid fa-plus fa-xs" 
+                [ngStyle]="{ color: color }" 
+                aria-hidden="true">
+            </i>  
         </button>
+
         <button class="btn py-0"
-            (click)="removeFromCart(product.id)"> 
-            <i class="fa-solid fa-minus fa-xs" style="color: #ffffff;"  aria-hidden="true"></i> 
+            (click)="decreamentFromCart(product.id)"> 
+            <i class="fa-solid fa-minus fa-xs" 
+                [ngStyle]="{ color: color }" 
+                aria-hidden="true">
+            </i> 
         </button>
+
+        <button *ngIf="removeButton"
+            class="btn btn-danger py-0"
+            (click)="removeFromCart(product.id)"> 
+            Remove
+        </button>
+
     </div>
 </div>

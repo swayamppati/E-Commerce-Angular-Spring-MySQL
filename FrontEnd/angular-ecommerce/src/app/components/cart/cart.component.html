@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-fluid px-5 pt-5">
+        <table class="table table-bordered border-light">
+            <thead>
+                <tr class="tableHeading">
+                    <td class="col-3">Product Image</td>
+                    <td class="col-5">Product Detail</td>
+                    <td>Details</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let id of idArray">
+                    <td><img src="{{ productMap.get(id).imageUrl }}" alt="" class="product-img"></td>
+                    <td>
+                        <p>{{ productMap.get(id).name }}</p>
+                        <p>{{ productMap.get(id).unitPrice | currency:'INR' }}</p>
+                    </td>
+                    <td>
+                        <p>Quantity:
+                            <app-add-buttons
+                                [product]="productMap.get(id)"
+                                [inCart]="true"
+                                [qtyStyle]="'btn-outline-dark'"
+                                [addButton]="false"
+                                [color]="'black'"
+                                [removeButton]="true"
+                                (removeFromCartEmitter)="removeFromCart($event)">
+                            </app-add-buttons>
+                        </p>
+                        <p>Subtotal: {{ productMap.get(id).unitPrice * qtyMap.get(id) | currency:'INR' }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-3"></td>
+                    <td class="col-5"></td>
+                    <td class="col-4">
+                        <b>
+                            <p>Total Quantity: {{ totalQty }}</p>
+                            <p *ngIf="totalPrice>=200">SHIPPING: FREE</p>
+                            <p>Total Price: {{ totalPrice | currency:'INR' }}</p>
+                        </b>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
