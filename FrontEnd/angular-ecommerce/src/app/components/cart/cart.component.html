@@ -45,6 +45,10 @@
                             <p *ngIf="totalPrice>=200">SHIPPING: FREE</p>
                             <p>Total Price: {{ totalPrice | currency:'INR' }}</p>
                         </b>
+                        <a class="btn btn-primary"
+                            routerLink="/checkout">
+                            Checkout
+                        </a>
                     </td>
                 </tr>
             </tbody>

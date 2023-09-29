@@ -1,0 +1,15 @@
+label, h4, p {
+    color:white;
+}
+
+.groupHeading {
+    position: relative;
+    bottom: 15px;
+    width: fit-content;
+    background-color: #113333;
+    /* padding: 2% 2% 2% 2%; */
+}
+
+.review *{
+    color: white;
+}

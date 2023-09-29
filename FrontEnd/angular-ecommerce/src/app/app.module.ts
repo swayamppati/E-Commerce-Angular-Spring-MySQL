@@ -9,6 +9,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { CartComponent } from './components/cart/cart.component';
+import { CheckoutFormComponent } from './components/checkout-form/checkout-form.component';
+import { AddButtonsComponent } from './components/add-buttons/add-buttons.component';
 
 /**
  * Node Modules
@@ -19,17 +22,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 /**
  * Service Providers
  */
 import { ProductService } from './services/product.service';
 import { CartService } from './services/cart.service';
-import { AddButtonsComponent } from './components/add-buttons/add-buttons.component';
-import { CartComponent } from './components/cart/cart.component';
+import { FormService } from './services/form.service';
 
 
 const routes: Routes = [
+  {path: 'checkout', component: CheckoutFormComponent},
   {path: 'cart', component: CartComponent},
   {path: 'product/:id/:catId', component: ProductDetailsComponent},
   {path: 'products/:keyword', component: ProductListComponent},
@@ -51,6 +55,7 @@ const routes: Routes = [
     SearchBarComponent,
     AddButtonsComponent,
     CartComponent,
+    CheckoutFormComponent,
 
   ],
   imports: [
@@ -59,8 +64,10 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
     NgbModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [ProductService, CartService],
+  providers: [ProductService, CartService, FormService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-fluid py-5 px-5">
+        <form action="" [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()">
+
+            <!-- customer form group -->
+            <div class="container-fluid border-top border-secondary px-4" formGroupName="customerGroup">
+                <div class="groupHeading px-2"><h4>Customer</h4></div>
+                <div class="row pb-2">
+                    <div class="col col-md-2"><label for="firstName">First Name:</label></div>
+                    <div class="col col-md-6">
+                        <input type="text" id="firstName" 
+                            formControlName="firstName" 
+                            class="form-control form-control-sm rounded-pill">
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col col-md-2"><label for="lastName">Last Name:</label></div>
+                    <div class="col col-md-6">
+                        <input type="text" id="lastName" 
+                            formControlName="lastName"
+                            class="form-control form-control-sm rounded-pill">
+                    </div>
+                </div>
+                <div class="row py-2 pb-3">
+                    <div class="col col-md-2"><label for="email">Email:</label></div>
+                    <div class="col col-md-6">
+                        <input type="text" id="email" 
+                            formControlName="email"
+                            class="form-control form-control-sm rounded-pill">
+                    </div>
+                </div>
+            </div>
+
+            <!-- shipping address form group -->
+            <div class="container-fluid border-top border-secondary px-4 mt-5" formGroupName="shipAddrGroup">
+                <div class="groupHeading px-2"><h4>Shipping Address</h4></div>
+                <div class="row pb-2">
+                    <div class="col col-md-2"><label for="country">Country:</label></div>
+                    <div class="col col-md-6">
+                        <select id="country" 
+                            formControlName="country"
+                            class="form-select form-select-sm rounded-pill">
+                            <option selected disabled>Select Country</option>
+                            <option value="1">India</option>
+                            <option value="2">Australia</option>
+                            <option value="3">UAE</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col col-md-2"><label for="state">State:</label></div>
+                    <div class="col col-md-6">
+                        <input type="text" id="state" 
+                            formControlName="state"
+                            class="form-control form-control-sm rounded-pill">
+                    </div>
+                </div>
+                <div class="row py-2 pb-3">
+                    <div class="col col-md-2"><label for="city">City:</label></div>
+                    <div class="col col-md-6">
+                        <input type="text" id="city" 
+                            formControlName="city"
+                            class="form-control form-control-sm rounded-pill">
+                    </div>
+                </div>
+                <div class="row py-2 pb-3">
+                    <div class="col col-md-2"><label for="street">Street:</label></div>
+                    <div class="col col-md-6">
+                        <input type="text" id="street" 
+                            formControlName="street"
+                            class="form-control form-control-sm rounded-pill">
+                    </div>
+                </div>
+                <div class="row py-2 pb-3">
+                    <div class="col col-md-2"><label for="pin">PIN:</label></div>
+                    <div class="col col-md-6">
+                        <input type="text" id="pin" 
+                            formControlName="pin"
+                            class="form-control form-control-sm rounded-pill">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add check box to copy shipping address to billing adress-->
+            <div class="row ms-3">
+                <label>
+                    <input type="checkbox" 
+                        [(ngModel)]="isChecked" 
+                        [ngModelOptions]="{standalone: true}" 
+                        (change)="copyShippingToBilling();"> Billing Address same as Shipping Address
+                </label>
+            </div>
+
+            <!-- billing address form group -->
+            <div class="container-fluid border-top border-secondary px-4 mt-5" formGroupName="billingAddrGroup">
+                <div class="groupHeading px-2"><h4>Billing Address</h4></div>
+                <div class="row pb-2">
+                    <div class="col col-md-2"><label for="country">Country:</label></div>
+                    <div class="col col-md-6">
+                        <select id="country" 
+                            formControlName="country"
+                            class="form-select form-select-sm rounded-pill">
+                            <option selected disabled>Select Country</option>
+                            <option value="1">India</option>
+                            <option value="2">Australia</option>
+                            <option value="3">UAE</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col col-md-2"><label for="state">State:</label></div>
+                    <div class="col col-md-6">
+                        <input type="text" id="state" 
+                            formControlName="state"
+                            class="form-control form-control-sm rounded-pill">
+                    </div>
+                </div>
+                <div class="row py-2 pb-3">
+                    <div class="col col-md-2"><label for="city">City:</label></div>
+                    <div class="col col-md-6">
+                        <input type="text" id="city" 
+                            formControlName="city"
+                            class="form-control form-control-sm rounded-pill">
+                    </div>
+                </div>
+                <div class="row py-2 pb-3">
+                    <div class="col col-md-2"><label for="street">Street:</label></div>
+                    <div class="col col-md-6">
+                        <input type="text" id="street" 
+                            formControlName="street"
+                            class="form-control form-control-sm rounded-pill">
+                    </div>
+                </div>
+                <div class="row py-2 pb-3">
+                    <div class="col col-md-2"><label for="pin">PIN:</label></div>
+                    <div class="col col-md-6">
+                        <input type="text" id="pin" 
+                            formControlName="pin"
+                            class="form-control form-control-sm rounded-pill">
+                    </div>
+                </div>
+            </div>
+
+            <!-- credit Card form group-->
+            <!-- TODO: add custom pipe to card number-->
+            <div class="container-fluid border-top border-secondary px-4 mt-5" formGroupName="creditCardGroup">
+                <div class="groupHeading px-2"><h4>Credit Card</h4></div>
+                <div class="row pb-2">
+                    <div class="col col-md-2"><label for="cardType">Card Type:</label></div>
+                    <div class="col col-md-6">
+                        <select id="cardType"
+                            formControlName="cardType"
+                            class="form-select form-select-sm rounded-pill">
+                            <option selected disabled>Select Card Type</option>
+                            <option>Visa</option>
+                            <option>Mastercard</option>
+                            <option>Rupay</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col col-md-2"><label for="nameOnCard">Name On Card:</label></div>
+                    <div class="col col-md-6">
+                        <input type="text" id="nameOnCard" 
+                            formControlName="nameOnCard"
+                            class="form-control form-control-sm rounded-pill">
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col col-md-2"><label for="cardNumber">Card Number:</label></div>
+                    <div class="col col-md-6">
+                        <input type="text" id="cardNumber" 
+                            formControlName="cardNumber"
+                            class="form-control form-control-sm rounded-pill">
+                    </div>
+                </div>
+                <div class="row py-2 pb-3">
+                    <div class="col col-md-2"><label for="cvc">CVC:</label></div>
+                    <div class="col col-md-6">
+                        <input type="text" id="cvc" 
+                            formControlName="cvc"
+                            class="form-control form-control-sm rounded-pill">
+                    </div>
+                </div>
+                <div class="row py-2 pb-3">
+                    <div class="col col-md-2"><label for="expMonth">Expiry:</label></div>
+                    <div class="col col-md-3">
+                        <select id="expMonth"
+                            formControlName="expMonth"
+                            class="form-select form-select-sm rounded-pill">
+                            <option selected disabled>Month</option>
+                            <option *ngFor="let month of monthList">{{ month }}</option>
+                        </select>
+                    </div>
+                    <div class="col col-md-3">
+                        <select id="expYear"
+                            formControlName="expYear"
+                            class="form-select form-select-sm rounded-pill">
+                            <option selected disabled>Year</option>
+                            <option *ngFor="let year of yearList">{{ year }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- review order -->
+            <div class="container-fluid border-top border-secondary px-4 mt-5 review">
+                <div class="groupHeading px-2"><h4>Review Your Order</h4></div>
+                <div class="row py-2">
+                    <div class="col col-md-2"><label>Total Quantity:</label></div>
+                    <div class="col col-md-6">{{ totalQty }}</div>
+                </div>
+                <div class="row py-2">
+                    <div class="col col-md-2"><label>Shipping:</label></div>
+                    <div class="col col-md-6">
+                        <ng-template *ngIf="totalPrice>=200; then thenBlock else elseBlock"></ng-template>
+                        <ng-template #thenBlock>FREE</ng-template>
+                        <ng-template #elseBlock>50</ng-template>
+                    </div>
+                    
+                </div>
+                <div class="row py-2">
+                    <div class="col col-md-2"><label>Total Price:</label></div>
+                    <div class="col col-md-6">{{ totalPrice | currency:'INR' }}</div>
+                </div>
+                <button type="submit" class="btn btn-success mt-2">
+                    Confirm
+                </button>
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>
