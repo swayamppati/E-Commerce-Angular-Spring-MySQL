@@ -1,9 +1,7 @@
 -- -----------------------------------------------------
 -- Schema full-stack-ecommerce
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `full-stack-ecommerce`;
-
-CREATE SCHEMA `full-stack-ecommerce`;
+CREATE SCHEMA IF NOT EXISTS `full-stack-ecommerce`;
 USE `full-stack-ecommerce` ;
 
 -- -----------------------------------------------------

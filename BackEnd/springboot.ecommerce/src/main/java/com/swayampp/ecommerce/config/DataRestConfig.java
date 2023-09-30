@@ -1,5 +1,7 @@
 package com.swayampp.ecommerce.config;
 
+import com.swayampp.ecommerce.entity.State;
+import com.swayampp.ecommerce.entity.Country;
 import com.swayampp.ecommerce.entity.Product;
 import com.swayampp.ecommerce.entity.ProductCategory;
 import jakarta.persistence.EntityManager;
@@ -41,6 +43,16 @@ public class DataRestConfig implements RepositoryRestConfigurer {
                 .forDomainType(ProductCategory.class)
                 .withItemExposure((metdata, httpMethods) -> httpMethods.disable(disabledMethods))
                 .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(disabledMethods));
+
+        config.getExposureConfiguration()
+                .forDomainType(Country.class)
+                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(disabledMethods))
+                .withCollectionExposure((metadata, httpMethods) -> httpMethods.disable(disabledMethods));
+
+        config.getExposureConfiguration()
+                .forDomainType(State.class)
+                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(disabledMethods))
+                .withCollectionExposure((metadata, httpMethods) -> httpMethods.disable(disabledMethods));
 
         //call an internal helper method to expose IDs for all Entities
         exposeIds(config);

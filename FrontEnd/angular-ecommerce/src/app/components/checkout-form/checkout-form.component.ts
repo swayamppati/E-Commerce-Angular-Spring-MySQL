@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { Country } from 'src/app/common/country';
+import { State } from 'src/app/common/state';
 import { CartService } from 'src/app/services/cart.service';
 import { FormService } from 'src/app/services/form.service';
+import { PlaceService } from 'src/app/services/place.service';
 
 @Component({
   selector: 'app-checkout-form',
@@ -16,20 +20,26 @@ export class CheckoutFormComponent implements OnInit {
   public totalPrice: number = 0;
 
   isChecked = false;
-
-  monthList: number[] = [];
+  
   yearList: number[] = [];
+  monthList: number[] = [];
+
+  countryList: Country[] = [];
+  shippingStateList: State[] = [];
+  billingStateList: State[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private cartService: CartService,
-    private formService: FormService
+    private formService: FormService,
+    private placeService: PlaceService
   ) { }
 
   ngOnInit(): void {
     this.defineForm();
     this.getTotals();
     this.getExpiryYear();
+    this.getCountries();
   }
 
   defineForm(): void {
@@ -39,16 +49,16 @@ export class CheckoutFormComponent implements OnInit {
         lastName: [''],
         email: ['']
       }),
-      shipAddrGroup: this.formBuilder.group({
+      shippingAddrGroup: this.formBuilder.group({
         country: ['Select Country'],
-        state: [''],
+        state: ['Select State'],
         city: [''],
         street: [''],
         pin: [''],
       }),
       billingAddrGroup: this.formBuilder.group({
         country: ['Select Country'],
-        state: [''],
+        state: ['Select State'],
         city: [''],
         street: [''],
         pin: [''],
@@ -74,15 +84,40 @@ export class CheckoutFormComponent implements OnInit {
 
   copyShippingToBilling() {
     if(this.isChecked) {
-      console.log("Checked");
       this.checkoutFormGroup.controls['billingAddrGroup'].setValue(
-        this.checkoutFormGroup.controls['shipAddrGroup'].value
+        this.checkoutFormGroup.controls['shippingAddrGroup'].value
       );
+      this.billingStateList = this.shippingStateList;
     }
     else{
       console.log("Unchecked");
       this.checkoutFormGroup.controls['billingAddrGroup'].reset();
+      this.billingStateList = [];
     }
+  }
+
+  getCountries(): void {
+    this.placeService.getCountries().subscribe(
+      data => {
+        this.countryList = data;
+        console.log(this.countryList);
+      }
+    )
+  }
+
+  getStates(formGroupName: string): void {
+    let countryCode = this.checkoutFormGroup.get(formGroupName)?.value.country.code;
+    console.log(countryCode);
+
+    this.placeService.getStates(countryCode).subscribe(
+      data => {
+        if(formGroupName == 'shippingAddrGroup')
+          this.shippingStateList = data;
+        else
+          this.billingStateList = data;
+        console.log(data);
+      }
+    )
   }
 
   getExpiryYear(): void {
@@ -115,7 +150,7 @@ export class CheckoutFormComponent implements OnInit {
   onSubmit(): void {
     console.log("Form Submitted");
     console.log(this.checkoutFormGroup.get('customerGroup')?.value);
-    console.log(this.checkoutFormGroup.get('shipAddrGroup')?.value);
+    console.log(this.checkoutFormGroup.get('shippingAddrGroup')?.value);
     console.log(this.checkoutFormGroup.get('billingAddrGroup')?.value);
     console.log(this.checkoutFormGroup.get('creditCardGroup')?.value);
   }

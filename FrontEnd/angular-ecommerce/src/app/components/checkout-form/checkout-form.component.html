@@ -39,27 +39,29 @@
             </div>
 
             <!-- shipping address form group -->
-            <div class="container-fluid border-top border-secondary px-4 mt-5" formGroupName="shipAddrGroup">
+            <div class="container-fluid border-top border-secondary px-4 mt-5" formGroupName="shippingAddrGroup">
                 <div class="groupHeading px-2"><h4>Shipping Address</h4></div>
                 <div class="row pb-2">
                     <div class="col col-md-2"><label for="country">Country:</label></div>
                     <div class="col col-md-6">
                         <select id="country" 
                             formControlName="country"
-                            class="form-select form-select-sm rounded-pill">
+                            class="form-select form-select-sm rounded-pill"
+                            (change)="getStates('shippingAddrGroup')">
                             <option selected disabled>Select Country</option>
-                            <option value="1">India</option>
-                            <option value="2">Australia</option>
-                            <option value="3">UAE</option>
+                            <option *ngFor="let country of countryList" [ngValue]="country">{{ country.name }}</option>
                         </select>
                     </div>
                 </div>
                 <div class="row py-2">
                     <div class="col col-md-2"><label for="state">State:</label></div>
                     <div class="col col-md-6">
-                        <input type="text" id="state" 
+                        <select id="state"
                             formControlName="state"
-                            class="form-control form-control-sm rounded-pill">
+                            class="form-select form-select-sm rounded-pill">
+                            <option selected disabled>Select State</option>
+                            <option *ngFor="let state of shippingStateList" [ngValue]="state">{{ state.name }}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row py-2 pb-3">
@@ -106,20 +108,22 @@
                     <div class="col col-md-6">
                         <select id="country" 
                             formControlName="country"
-                            class="form-select form-select-sm rounded-pill">
+                            class="form-select form-select-sm rounded-pill"
+                            (change)="getStates('billingAddrGroup')">
                             <option selected disabled>Select Country</option>
-                            <option value="1">India</option>
-                            <option value="2">Australia</option>
-                            <option value="3">UAE</option>
+                            <option *ngFor="let country of countryList" [ngValue]="country">{{ country.name }}</option>
                         </select>
                     </div>
                 </div>
                 <div class="row py-2">
                     <div class="col col-md-2"><label for="state">State:</label></div>
                     <div class="col col-md-6">
-                        <input type="text" id="state" 
+                        <select id="state"
                             formControlName="state"
-                            class="form-control form-control-sm rounded-pill">
+                            class="form-select form-select-sm rounded-pill">
+                            <option selected disabled>Select State</option>
+                            <option *ngFor="let state of billingStateList" [ngValue]="state">{{ state.name }}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row py-2 pb-3">
