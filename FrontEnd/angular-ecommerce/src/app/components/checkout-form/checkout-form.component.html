@@ -190,21 +190,22 @@
                     </div>
                 </div>
                 <div class="row py-2 pb-3">
-                    <div class="col col-md-2"><label for="expMonth">Expiry:</label></div>
+                    <div class="col col-md-2"><label for="expYear">Expiry:</label></div>
+                    <div class="col col-md-3">
+                        <select id="expYear"
+                            formControlName="expYear"
+                            class="form-select form-select-sm rounded-pill"
+                            (change)="getExpiryMonth()">
+                            <option selected disabled>Year</option>
+                            <option *ngFor="let year of yearList">{{ year }}</option>
+                        </select>
+                    </div>
                     <div class="col col-md-3">
                         <select id="expMonth"
                             formControlName="expMonth"
                             class="form-select form-select-sm rounded-pill">
                             <option selected disabled>Month</option>
                             <option *ngFor="let month of monthList">{{ month }}</option>
-                        </select>
-                    </div>
-                    <div class="col col-md-3">
-                        <select id="expYear"
-                            formControlName="expYear"
-                            class="form-select form-select-sm rounded-pill">
-                            <option selected disabled>Year</option>
-                            <option *ngFor="let year of yearList">{{ year }}</option>
                         </select>
                     </div>
                 </div>

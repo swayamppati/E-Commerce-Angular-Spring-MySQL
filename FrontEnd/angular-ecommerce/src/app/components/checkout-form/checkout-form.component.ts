@@ -29,7 +29,7 @@ export class CheckoutFormComponent implements OnInit {
   ngOnInit(): void {
     this.defineForm();
     this.getTotals();
-    this.getExpiry();
+    this.getExpiryYear();
   }
 
   defineForm(): void {
@@ -85,17 +85,31 @@ export class CheckoutFormComponent implements OnInit {
     }
   }
 
-  getExpiry(): void {
-    this.formService.generateMonths().subscribe(
-      data => {
-        this.monthList=data;
-      }
-    );
+  getExpiryYear(): void {
     this.formService.generateYears().subscribe(
       data => {
         this.yearList=data;
       }
     );
+  }
+
+  getExpiryMonth(): void {
+    let date: Date = new Date();
+    let currentYear = date.getFullYear();
+    let currentMonth = date.getMonth()+1; //Goes 0 to 11
+
+    let selectedYear = +this.checkoutFormGroup.get('creditCardGroup')?.value.expYear;
+    let startMonth = selectedYear==currentYear ? currentMonth : 1;
+
+    this.formService.generateMonths(startMonth).subscribe(
+      data => {
+        this.monthList=data;
+      }
+    );
+
+    console.log(currentYear);
+    console.log(selectedYear);
+    console.log(startMonth);
   }
 
   onSubmit(): void {
