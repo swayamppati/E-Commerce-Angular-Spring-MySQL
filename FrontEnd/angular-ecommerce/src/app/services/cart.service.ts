@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Product } from '../common/product';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class CartService implements OnInit{
   productQtyMap = new Map()
 
   //Emitters for their Observers
-  totalQty: Subject<number> = new Subject<number>();
-  totalPrice: Subject<number> = new Subject<number>();
+  totalQty: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  totalPrice: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   constructor() { }
 

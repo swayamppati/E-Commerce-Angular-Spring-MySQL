@@ -35,8 +35,9 @@ export class CartComponent implements OnInit {
     this.cartService.totalQty.subscribe(data => { this.totalQty = data; });
     this.cartService.totalPrice.subscribe(data => { this.totalPrice = data; });
 
-    //This component has subscribed lately, so triggered the Obervable Again.
-    this.cartService.computeTotals();
+    //Not needed anymore due to BehaviourSubject
+    // //This component has subscribed lately, so triggered the Obervable Again.
+    // this.cartService.computeTotals();
   }
 }
 

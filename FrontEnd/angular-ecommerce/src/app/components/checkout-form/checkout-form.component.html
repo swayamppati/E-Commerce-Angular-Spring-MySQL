@@ -18,6 +18,10 @@
                         <input type="text" id="firstName" 
                             formControlName="firstName" 
                             class="form-control form-control-sm rounded-pill">
+                        <span *ngIf="firstName?.invalid && (firstName?.touched)" class="alertMessage">
+                            <span *ngIf="firstName?.errors?.['required'] || firstName?.errors?.['notOnlyWhitespace']">*First Name is required</span>
+                            <span *ngIf="firstName?.errors?.['minlength']">*First Name length atleast 2 characters</span>
+                        </span>
                     </div>
                 </div>
                 <div class="row py-2">
@@ -26,6 +30,10 @@
                         <input type="text" id="lastName" 
                             formControlName="lastName"
                             class="form-control form-control-sm rounded-pill">
+                        <span *ngIf="lastName?.invalid && (lastName?.touched)" class="alertMessage">
+                            <span *ngIf="lastName?.errors?.['required'] || lastName?.errors?.['notOnlyWhitespace']">*Last Name is required</span>
+                            <span *ngIf="lastName?.errors?.['minlength']">*Last Name length atleast 2 characters</span>
+                        </span>
                     </div>
                 </div>
                 <div class="row py-2 pb-3">
@@ -34,6 +42,10 @@
                         <input type="text" id="email" 
                             formControlName="email"
                             class="form-control form-control-sm rounded-pill">
+                        <span *ngIf="email?.invalid && (email?.touched)" class="alertMessage">
+                            <span *ngIf="email?.errors?.['required']">*Email is required</span>
+                            <span *ngIf="email?.errors?.['pattern']">*Email must be a valid email format</span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -44,13 +56,16 @@
                 <div class="row pb-2">
                     <div class="col col-md-2"><label for="country">Country:</label></div>
                     <div class="col col-md-6">
-                        <select id="country" 
+                        <select id="country" aria-placeholder="Select Country"
                             formControlName="country"
                             class="form-select form-select-sm rounded-pill"
                             (change)="getStates('shippingAddrGroup')">
-                            <option selected disabled>Select Country</option>
+                            <option selected disabled value="">Select Country</option>
                             <option *ngFor="let country of countryList" [ngValue]="country">{{ country.name }}</option>
                         </select>
+                        <span *ngIf="shippingAddrCountry?.invalid && (shippingAddrCountry?.touched)" class="alertMessage">
+                            <span *ngIf="shippingAddrCountry?.errors?.['required']">*Country is required</span>
+                        </span>
                     </div>
                 </div>
                 <div class="row py-2">
@@ -59,9 +74,12 @@
                         <select id="state"
                             formControlName="state"
                             class="form-select form-select-sm rounded-pill">
-                            <option selected disabled>Select State</option>
+                            <option selected disabled value="">Select State</option>
                             <option *ngFor="let state of shippingStateList" [ngValue]="state">{{ state.name }}</option>
                         </select>
+                        <span *ngIf="shippingAddrState?.invalid && (shippingAddrState?.touched)" class="alertMessage">
+                            <span *ngIf="shippingAddrState?.errors?.['required']">*State is required</span>
+                        </span>
                     </div>
                 </div>
                 <div class="row py-2 pb-3">
@@ -70,6 +88,10 @@
                         <input type="text" id="city" 
                             formControlName="city"
                             class="form-control form-control-sm rounded-pill">
+                        <span *ngIf="shippingAddrCity?.invalid && (shippingAddrCity?.touched)" class="alertMessage">
+                            <span *ngIf="shippingAddrCity?.errors?.['required'] || shippingAddrCity?.errors?.['notOnlyWhitespace']">*City is required</span>
+                            <span *ngIf="shippingAddrCity?.errors?.['minlength']">*City length atleast 2 characters</span>
+                        </span>
                     </div>
                 </div>
                 <div class="row py-2 pb-3">
@@ -78,6 +100,10 @@
                         <input type="text" id="street" 
                             formControlName="street"
                             class="form-control form-control-sm rounded-pill">
+                        <span *ngIf="shippingAddrStreet?.invalid && (shippingAddrStreet?.touched)" class="alertMessage">
+                            <span *ngIf="shippingAddrStreet?.errors?.['required'] || shippingAddrStreet?.errors?.['notOnlyWhitespace']">*Street is required</span>
+                            <span *ngIf="shippingAddrStreet?.errors?.['minlength']">*Street length atleast 2 characters</span>
+                        </span>
                     </div>
                 </div>
                 <div class="row py-2 pb-3">
@@ -86,6 +112,10 @@
                         <input type="text" id="pin" 
                             formControlName="pin"
                             class="form-control form-control-sm rounded-pill">
+                        <span *ngIf="shippingAddrPin?.invalid && (shippingAddrPin?.touched)" class="alertMessage">
+                            <span *ngIf="shippingAddrPin?.errors?.['required']">*PIN is required</span>
+                            <span *ngIf="shippingAddrPin?.errors?.['pattern']">*PIN must be of 6 digits</span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -110,9 +140,12 @@
                             formControlName="country"
                             class="form-select form-select-sm rounded-pill"
                             (change)="getStates('billingAddrGroup')">
-                            <option selected disabled>Select Country</option>
+                            <option selected disabled value="">Select Country</option>
                             <option *ngFor="let country of countryList" [ngValue]="country">{{ country.name }}</option>
                         </select>
+                        <span *ngIf="billingAddrCountry?.invalid && (billingAddrCountry?.touched)" class="alertMessage">
+                            <span *ngIf="billingAddrCountry?.errors?.['required']">*Country is required</span>
+                        </span>
                     </div>
                 </div>
                 <div class="row py-2">
@@ -121,9 +154,12 @@
                         <select id="state"
                             formControlName="state"
                             class="form-select form-select-sm rounded-pill">
-                            <option selected disabled>Select State</option>
+                            <option selected disabled value="">Select State</option>
                             <option *ngFor="let state of billingStateList" [ngValue]="state">{{ state.name }}</option>
                         </select>
+                        <span *ngIf="billingAddrState?.invalid && (billingAddrState?.touched)" class="alertMessage">
+                            <span *ngIf="billingAddrState?.errors?.['required']">*State is required</span>
+                        </span>
                     </div>
                 </div>
                 <div class="row py-2 pb-3">
@@ -132,6 +168,10 @@
                         <input type="text" id="city" 
                             formControlName="city"
                             class="form-control form-control-sm rounded-pill">
+                        <span *ngIf="billingAddrCity?.invalid && (billingAddrCity?.touched)" class="alertMessage">
+                            <span *ngIf="billingAddrCity?.errors?.['required'] || billingAddrCity?.errors?.['notOnlyWhitespace']">*City is required</span>
+                            <span *ngIf="billingAddrCity?.errors?.['minlength']">*City length atleast 2 characters</span>
+                        </span>
                     </div>
                 </div>
                 <div class="row py-2 pb-3">
@@ -140,6 +180,10 @@
                         <input type="text" id="street" 
                             formControlName="street"
                             class="form-control form-control-sm rounded-pill">
+                        <span *ngIf="billingAddrStreet?.invalid && (billingAddrStreet?.touched)" class="alertMessage">
+                            <span *ngIf="billingAddrStreet?.errors?.['required'] || billingAddrStreet?.errors?.['notOnlyWhitespace']">*Street is required</span>
+                            <span *ngIf="billingAddrStreet?.errors?.['minlength']">*Street length atleast 2 characters</span>
+                        </span>
                     </div>
                 </div>
                 <div class="row py-2 pb-3">
@@ -148,6 +192,10 @@
                         <input type="text" id="pin" 
                             formControlName="pin"
                             class="form-control form-control-sm rounded-pill">
+                        <span *ngIf="billingAddrPin?.invalid && (billingAddrPin?.touched)" class="alertMessage">
+                            <span *ngIf="billingAddrPin?.errors?.['required']">*PIN is required</span>
+                            <span *ngIf="billingAddrPin?.errors?.['pattern']">*PIN must be of 6 digits</span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -162,11 +210,14 @@
                         <select id="cardType"
                             formControlName="cardType"
                             class="form-select form-select-sm rounded-pill">
-                            <option selected disabled>Select Card Type</option>
+                            <option selected disabled value="">Select Card Type</option>
                             <option>Visa</option>
                             <option>Mastercard</option>
                             <option>Rupay</option>
                         </select>
+                        <span *ngIf="cardType?.invalid && (cardType?.touched)" class="alertMessage">
+                            <span *ngIf="cardType?.errors?.['required']">*Card Type is required</span>
+                        </span>
                     </div>
                 </div>
                 <div class="row py-2">
@@ -175,6 +226,10 @@
                         <input type="text" id="nameOnCard" 
                             formControlName="nameOnCard"
                             class="form-control form-control-sm rounded-pill">
+                        <span *ngIf="nameOnCard?.invalid && (nameOnCard?.touched)" class="alertMessage">
+                            <span *ngIf="nameOnCard?.errors?.['required'] || nameOnCard?.errors?.['notOnlyWhitespace']">*Name on Card is required</span>
+                            <span *ngIf="nameOnCard?.errors?.['minlength']">*Name on Card length atleast 2 characters</span>
+                        </span>
                     </div>
                 </div>
                 <div class="row py-2">
@@ -183,6 +238,10 @@
                         <input type="text" id="cardNumber" 
                             formControlName="cardNumber"
                             class="form-control form-control-sm rounded-pill">
+                        <span *ngIf="cardNumber?.invalid && (cardNumber?.touched)" class="alertMessage">
+                            <span *ngIf="cardNumber?.errors?.['required']">*Card Number is required</span>
+                            <span *ngIf="cardNumber?.errors?.['pattern']">*Card Number must be of 16 digits</span>
+                        </span>
                     </div>
                 </div>
                 <div class="row py-2 pb-3">
@@ -191,6 +250,10 @@
                         <input type="text" id="cvc" 
                             formControlName="cvc"
                             class="form-control form-control-sm rounded-pill">
+                        <span *ngIf="cvc?.invalid && (cvc?.touched)" class="alertMessage">
+                            <span *ngIf="cvc?.errors?.['required']">*CVC is required</span>
+                            <span *ngIf="cvc?.errors?.['pattern']">*CVC must be of 3 digits</span>
+                        </span>
                     </div>
                 </div>
                 <div class="row py-2 pb-3">
@@ -200,17 +263,23 @@
                             formControlName="expYear"
                             class="form-select form-select-sm rounded-pill"
                             (change)="getExpiryMonth()">
-                            <option selected disabled>Year</option>
+                            <option selected disabled value="">Year</option>
                             <option *ngFor="let year of yearList">{{ year }}</option>
                         </select>
+                    <span *ngIf="expMonth?.invalid && (expMonth?.touched)" class="alertMessage">
+                        <span *ngIf="expMonth?.errors?.['required']">*Expiry Month is required</span>
+                    </span>
                     </div>
                     <div class="col col-md-3">
                         <select id="expMonth"
                             formControlName="expMonth"
                             class="form-select form-select-sm rounded-pill">
-                            <option selected disabled>Month</option>
+                            <option selected disabled value="">Month</option>
                             <option *ngFor="let month of monthList">{{ month }}</option>
                         </select>
+                    <span *ngIf="expYear?.invalid && (expYear?.touched)" class="alertMessage">
+                        <span *ngIf="expYear?.errors?.['required']">*Expiry Year is required</span>
+                    </span>
                     </div>
                 </div>
             </div>
@@ -235,7 +304,8 @@
                     <div class="col col-md-2"><label>Total Price:</label></div>
                     <div class="col col-md-6">{{ totalPrice | currency:'INR' }}</div>
                 </div>
-                <button type="submit" class="btn btn-success mt-2">
+                <button type="submit" class="btn btn-success mt-2"
+                    (click)="onSubmit">
                     Confirm
                 </button>
             </div>

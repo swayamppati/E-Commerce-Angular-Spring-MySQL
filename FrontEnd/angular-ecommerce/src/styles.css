@@ -25,3 +25,8 @@ body {
     max-width: 70%;
     height: auto;
 }
+
+.alertMessage {
+    display: inline;
+    color: #FF4444;
+}
