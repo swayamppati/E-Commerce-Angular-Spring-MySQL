@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `full-stack-ecommerce`.`orders`(
 	total_qty INT NOT NULL,
 	total_price FLOAT NOT NULL,
     order_tracking_number VARCHAR(255) NOT NULL,
-    status VARCHAR(128) NOT NULL,
+    status VARCHAR(128) DEFAULT NULL,
     date_created DATETIME(6),
     last_updated DATETIME(6),
     PRIMARY KEY(id),
@@ -65,15 +65,14 @@ AUTO_INCREMENT=1;
 -- ---------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `full-stack-ecommerce`.`order_items`(
 	id INT NOT NULL AUTO_INCREMENT,
-    order_id INT NOT NULL,
+    order_id INT DEFAULT NULL,
     product_id BIGINT NOT NULL,
-    total_qty INT NOT NULL,
-    total_price FLOAT NOT NULL,
+    image_url VARCHAR(255),
+    unit_price DECIMAL(19,2),
+    quantity INT NOT NULL,
     PRIMARY KEY(id),
     CONSTRAINT fk_orders_order_items_order_id
-    FOREIGN KEY (`order_id`) REFERENCES `full-stack-ecommerce`.`orders`(`id`),
-    CONSTRAINT fk_products_order_items_product_id
-    FOREIGN KEY (`product_id`) REFERENCES `full-stack-ecommerce`.`products`(`id`)
+    FOREIGN KEY (`order_id`) REFERENCES `full-stack-ecommerce`.`orders`(`id`)
 );
 
 
