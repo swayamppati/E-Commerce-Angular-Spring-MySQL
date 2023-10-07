@@ -65,7 +65,7 @@ AUTO_INCREMENT=1;
 -- ---------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `full-stack-ecommerce`.`order_items`(
 	id INT NOT NULL AUTO_INCREMENT,
-    order_id INT DEFAULT NULL,
+    order_id INT NOT NULL,
     product_id BIGINT NOT NULL,
     image_url VARCHAR(255),
     unit_price DECIMAL(19,2),

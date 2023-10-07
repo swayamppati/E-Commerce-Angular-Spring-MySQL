@@ -21,10 +21,10 @@ public class Order {
     private int id;
 
     @Column(name = "total_qty")
-    private int total_qty;
+    private int totalQty;
 
     @Column(name = "total_price")
-    private float total_price;
+    private float totalPrice;
 
     @Column(name = "order_tracking_number")
     private String orderTrackingNumber;
@@ -60,5 +60,18 @@ public class Order {
             orderItems = new HashSet<>();
         orderItems.add(orderItem);
         orderItem.setOrder(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", totalQty=" + totalQty +
+                ", totalPrice=" + totalPrice +
+                ", orderTrackingNumber='" + orderTrackingNumber + '\'' +
+                ", status='" + status + '\'' +
+                ", dateCreated=" + dateCreated +
+                ", lastUpdated=" + lastUpdated +
+                '}';
     }
 }

@@ -36,5 +36,15 @@ public class Address {
     @PrimaryKeyJoinColumn
     private Set<Order> orders;
 
-
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", country='" + country + '\'' +
+                ", state='" + state + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", pin=" + pin +
+                '}';
+    }
 }
