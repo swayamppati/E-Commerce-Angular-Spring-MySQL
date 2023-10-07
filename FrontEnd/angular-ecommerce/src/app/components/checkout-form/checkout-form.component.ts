@@ -1,9 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Address } from 'src/app/common/address';
 import { Country } from 'src/app/common/country';
+import { Customer } from 'src/app/common/customer';
+import { Order } from 'src/app/common/order';
+import { OrderItem } from 'src/app/common/order-item';
+import { Purchase } from 'src/app/common/purchase';
 import { State } from 'src/app/common/state';
 import { CartService } from 'src/app/services/cart.service';
+import { CheckoutService } from 'src/app/services/checkout.service';
 import { FormService } from 'src/app/services/form.service';
 import { PlaceService } from 'src/app/services/place.service';
 import { CustomValidators } from 'src/app/validators/custom-validators';
@@ -33,7 +40,9 @@ export class CheckoutFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private cartService: CartService,
     private formService: FormService,
-    private placeService: PlaceService
+    private placeService: PlaceService,
+    private checkoutService: CheckoutService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -114,14 +123,14 @@ export class CheckoutFormComponent implements OnInit {
     this.placeService.getCountries().subscribe(
       data => {
         this.countryList = data;
-        console.log(this.countryList);
+        // console.log(this.countryList);
       }
     )
   }
 
   getStates(formGroupName: string): void {
     let countryCode = this.checkoutFormGroup.get(formGroupName)?.value.country.code;
-    console.log(countryCode);
+    // console.log(countryCode);
 
     this.placeService.getStates(countryCode).subscribe(
       data => {
@@ -129,7 +138,7 @@ export class CheckoutFormComponent implements OnInit {
           this.shippingStateList = data;
         else
           this.billingStateList = data;
-        console.log(data);
+        // console.log(data);
       }
     )
   }
@@ -156,9 +165,9 @@ export class CheckoutFormComponent implements OnInit {
       }
     );
 
-    console.log(currentYear);
-    console.log(selectedYear);
-    console.log(startMonth);
+    // console.log(currentYear);
+    // console.log(selectedYear);
+    // console.log(startMonth);
   }
 
   //Getters for formControls
@@ -188,18 +197,68 @@ export class CheckoutFormComponent implements OnInit {
 
   
   onSubmit(): void {
-    console.log("Form Submitted");
-    console.log(this.checkoutFormGroup.get('customerGroup')?.value);
-    // console.log(this.checkoutFormGroup.get('shippingAddrGroup')?.value);
-    // console.log(this.checkoutFormGroup.get('billingAddrGroup')?.value);
-    // console.log(this.checkoutFormGroup.get('creditCardGroup')?.value);
 
-    //Not required for all fields, but mostly user will click submit when he is on last field he is filling
+    //Not required for all fields, but mostly user will click submit when he is on last field he is filling(can be any)
     if(this.checkoutFormGroup.invalid) {
       this.checkoutFormGroup.markAllAsTouched();
+      return;
     }
+    
+    //Setup Customer
+    let customer: Customer = new Customer(this.firstName?.value, this.lastName?.value, this.email?.value);
 
-    console.log("CheckoutFormFroup is valid: " + this.checkoutFormGroup.valid);
+    //Setup Order
+    let order: Order = new Order(this.totalQty, this.totalPrice);
+
+    //Setup ShippingAddr
+    let shippingAddr: Address = new Address(this.shippingAddrCountry?.value.name, this.shippingAddrState?.value.name,
+                                            this.shippingAddrCity?.value, this.shippingAddrStreet?.value,
+                                            this.shippingAddrPin?.value)
+    
+    //Setup BillingAddr
+    let billingAddr: Address = new Address(this.billingAddrCountry?.value.name, this.billingAddrState?.value.name,
+                                            this.billingAddrCity?.value, this.billingAddrStreet?.value,
+                                            this.billingAddrPin?.value)
+                                            
+    //Setup Set<OrderItem>
+    let orderItems: OrderItem[] = [];
+    this.cartService.productQtyMap.forEach((value, key) => {
+      orderItems.push(new OrderItem(key.id, key.imageUrl, key.unitPrice, value))
+    })
+
+    //Popuplate Purchase Object
+    let purchase: Purchase = new Purchase(customer, order, shippingAddr, billingAddr, orderItems);
+
+    //Call Checkout Service
+    this.checkoutService.placeOrder(purchase).subscribe({
+      next: response => {
+        alert(`Your Order has been placed.\nOrder Tracking Number: ${response.orderTrackingNumber}`);
+        
+        //reset cart
+        this.resetCart();
+      },
+      error: err => {
+        alert(`There was an error:\n${err.message}`);
+      }
+    })
+
+  }
+  resetCart() {
+    //reset cart data
+    this.cartService.productQtyMap.clear();
+    this.cartService.totalPrice.next(0);
+    this.cartService.totalQty.next(0);
+    
+    //reset form
+    console.log("Reset");
+    for (const key in this.checkoutFormGroup.controls) 
+      this.checkoutFormGroup.get(key)?.clearValidators();
+  
+    // this.checkoutFormGroup.reset();
+
+    //navigate back to products page
+    console.log("Navigate");
+    this.router.navigateByUrl("products");
   }
 
 }

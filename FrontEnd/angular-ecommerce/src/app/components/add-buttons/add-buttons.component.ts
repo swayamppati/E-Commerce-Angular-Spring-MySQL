@@ -47,7 +47,7 @@ export class AddButtonsComponent implements OnInit {
     }
   
     isAdded(): boolean {
-      console.log(`isAdded: ${this.product.id}`)
+      // console.log(`isAdded: ${this.product.id}`)
       return this.cartService.productQtyMap.get(this.product)>0;
     }
   

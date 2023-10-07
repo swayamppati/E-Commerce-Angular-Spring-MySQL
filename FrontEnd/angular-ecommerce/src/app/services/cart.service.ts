@@ -7,7 +7,10 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class CartService implements OnInit{
 
-  /** Dont need these to be static. :-) */
+  /** 
+   * Dont need these to be static. :-) 
+   * Services are implemented for whole app, once required, not for individual initialisations
+   * */
   //Map of product -> qty
   productQtyMap = new Map()
 

@@ -1,0 +1,60 @@
+{
+  "customer": {
+    "firstName": "Swayam",
+    "lastName": "Pati",
+    "email": "swayam@gmail.com"
+  },
+  "order": { 
+    "totalQty": 0, 
+    "totalPrice": 0 
+    },
+  "shippingAddr": {
+    "country": {
+      "id": 1,
+      "code": "IN",
+      "name": "India",
+      "_links": {
+        "self": { "href": "http://localhost:8080/api/countries/1" },
+        "country": { "href": "http://localhost:8080/api/countries/1" },
+        "states": { "href": "http://localhost:8080/api/countries/1/states" }
+      }
+    },
+    "state": {
+      "id": 20,
+      "name": "Odisha",
+      "_links": {
+        "self": { "href": "http://localhost:8080/api/states/20" },
+        "state": { "href": "http://localhost:8080/api/states/20" },
+        "country": { "href": "http://localhost:8080/api/states/20/country" }
+      }
+    },
+    "city": "Kendujhar",
+    "street": "Buladwarsahi",
+    "pin": "758001"
+  },
+  "billingAddr": {
+    "country": {
+      "id": 1,
+      "code": "IN",
+      "name": "India",
+      "_links": {
+        "self": { "href": "http://localhost:8080/api/countries/1" },
+        "country": { "href": "http://localhost:8080/api/countries/1" },
+        "states": { "href": "http://localhost:8080/api/countries/1/states" }
+      }
+    },
+    "state": {
+      "id": 20,
+      "name": "Odisha",
+      "_links": {
+        "self": { "href": "http://localhost:8080/api/states/20" },
+        "state": { "href": "http://localhost:8080/api/states/20" },
+        "country": { "href": "http://localhost:8080/api/states/20/country" }
+      }
+    },
+    "city": "Kendujhar",
+    "street": "Buladwarsahi",
+    "pin": "758001"
+  },
+  "orderItems": []
+}
