@@ -1,0 +1,12 @@
+<div class="container-fluid ms-auto d-flex justify-content-end">
+    <div *ngIf="isAuthenticated">
+        <span class="btn fst-italic font-monospace">Welcome {{ userFirstName }}!</span>
+        <button class="btn btn-outline-light rounded-pill"
+            (click)="logout()">LogOut
+        </button>
+    </div>
+    <button *ngIf="!isAuthenticated" class="btn btn-light rounded-pill"
+        routerLink="/login">
+        LogIn
+    </button>
+</div>
