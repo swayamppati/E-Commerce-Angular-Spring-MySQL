@@ -37,6 +37,7 @@ import { OKTA_CONFIG, OktaAuthGuard, OktaAuthModule, OktaAuthStateService, OktaC
 import { OktaAuth } from '@okta/okta-auth-js';
 
 import myAppConfig from './config/my-app-config';
+import { LoginStatusService } from './services/login-status.service';
 
 const oktaConfig = myAppConfig.oidc;
 const oktaAuth = new OktaAuth(oktaConfig);
@@ -84,7 +85,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     OktaAuthModule
   ],
-  providers: [ProductService, CartService, FormService, PlaceService, { provide: OKTA_CONFIG, useValue: {oktaAuth}}],
+  providers: [ProductService, CartService, FormService, LoginStatusService,
+              PlaceService, { provide: OKTA_CONFIG, useValue: {oktaAuth}}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

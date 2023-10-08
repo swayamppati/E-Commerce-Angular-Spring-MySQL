@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Address } from 'src/app/common/address';
+import { CartItem } from 'src/app/common/cart-item';
 import { Country } from 'src/app/common/country';
 import { Customer } from 'src/app/common/customer';
 import { Order } from 'src/app/common/order';
@@ -222,8 +223,8 @@ export class CheckoutFormComponent implements OnInit {
                                             
     //Setup Set<OrderItem>
     let orderItems: OrderItem[] = [];
-    this.cartService.productQtyMap.forEach((value, key) => {
-      orderItems.push(new OrderItem(key.id, key.imageUrl, key.unitPrice, value))
+    this.cartService.cartItems.forEach(cartItem => {
+      orderItems.push(new OrderItem(cartItem))
     })
 
     //Popuplate Purchase Object
@@ -245,7 +246,7 @@ export class CheckoutFormComponent implements OnInit {
   }
   resetCart() {
     //reset cart data
-    this.cartService.productQtyMap.clear();
+    this.cartService.cartItems = [];
     this.cartService.totalPrice.next(0);
     this.cartService.totalQty.next(0);
     

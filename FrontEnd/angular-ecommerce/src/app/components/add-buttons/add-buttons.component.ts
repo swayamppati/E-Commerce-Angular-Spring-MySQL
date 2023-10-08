@@ -48,13 +48,16 @@ export class AddButtonsComponent implements OnInit {
   
     isAdded(): boolean {
       // console.log(`isAdded: ${this.product.id}`)
-      return this.cartService.productQtyMap.get(this.product)>0;
+      let ind = this.cartService.findItemIndex(this.product.id);
+      return (ind!=-1 && this.cartService.cartItems[ind].quantity>0);
     }
   
     getQuantity(): number {
       // console.log(`getQuantity(): ${this.product.id}`);
-      if(this.cartService.productQtyMap.has(this.product))
-        return this.cartService.productQtyMap.get(this.product);
+      // console.log(this.cartService.productQtyMap.get(this.product));
+      let ind = this.cartService.findItemIndex(this.product.id);
+      if(ind!=-1)
+        return this.cartService.cartItems[ind].quantity;
       else
         return 0;
     }

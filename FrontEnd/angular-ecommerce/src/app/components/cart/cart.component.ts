@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CartItem } from 'src/app/common/cart-item';
 import { Product } from 'src/app/common/product';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -10,7 +11,7 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class CartComponent implements OnInit {
 
-  productQtyMap = new Map();
+  cartItems: CartItem[] = [];
 
   idArray: number[] = [];
 
@@ -28,7 +29,7 @@ export class CartComponent implements OnInit {
 
   getCartItems(): void {
     //Maps are assigned by reference
-    this.productQtyMap = this.cartService.productQtyMap;
+    this.cartItems= this.cartService.cartItems;
   }
 
   getTotals(): void {

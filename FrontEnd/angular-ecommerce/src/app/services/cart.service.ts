@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Product } from '../common/product';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { CartItem } from '../common/cart-item';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class CartService implements OnInit{
    * Services are implemented for whole app, once required, not for individual initialisations
    * */
   //Map of product -> qty
-  productQtyMap = new Map()
+  // idProductMap = new Map();
+  cartItems: CartItem[] = [];
 
   //Emitters for their Observers
   totalQty: BehaviorSubject<number> = new BehaviorSubject<number>(0);
@@ -22,14 +24,25 @@ export class CartService implements OnInit{
 
   ngOnInit(): void {
     console.log("Cart Service Object Created\n");
+
+  }
+
+  findItemIndex(id: number): number {
+    for(let i=0; i<this.cartItems.length; ++i) {
+      if(this.cartItems[i].product.id == id)
+        return i;
+    }
+
+    return -1;
   }
 
   addToCart(product: Product): void {
     // console.log(`added:  ${product.id}`);
-    if(this.productQtyMap.has(product))
-      this.productQtyMap.set(product, this.productQtyMap.get(product) + 1);
+    let ind = this.findItemIndex(product.id);
+    if(ind != -1)
+      this.cartItems[ind].quantity+=1;
     else {
-      this.productQtyMap.set(product, 1);
+      this.cartItems.push(new CartItem(product, 1));
     }
     this.computeTotals();
   }
@@ -39,9 +52,10 @@ export class CartService implements OnInit{
    * Doesn't remove, just can decreament till 0.
    */
   decreamentFromCart(product: Product): void {
-    if(this.productQtyMap.get(product)>0) {
+    let ind = this.findItemIndex(product.id);
+    if(ind != -1 && this.cartItems[ind].quantity>0) {
       // console.log(`decreamented:  ${product.id}`);
-      this.productQtyMap.set(product, this.productQtyMap.get(product) - 1);
+      this.cartItems[ind].quantity-=1;
     }
     else
       console.log(`decreament NP`);
@@ -49,18 +63,18 @@ export class CartService implements OnInit{
   }
 
   removeFromCart(product: Product): void {
-    while(this.productQtyMap.get(product)>0)
-      this.decreamentFromCart(product);
-    this.productQtyMap.delete(product);
+    let ind = this.findItemIndex(product.id);
+    this.cartItems.splice(ind, 1);
+    this.computeTotals();
   }
 
   computeTotals(): void {
     // console.log(`computeTotals()`);
     let totalQty = 0;
     let totalPrice = 0;
-    for(let [product, qty] of this.productQtyMap) {
-      totalQty = totalQty + qty;
-      totalPrice = totalPrice + product.unitPrice * qty;
+    for(let cartItem of this.cartItems) {
+      totalQty += cartItem.quantity;
+      totalPrice = totalPrice + cartItem.product.unitPrice * cartItem.quantity;
     }
 
     this.totalQty.next(totalQty);
