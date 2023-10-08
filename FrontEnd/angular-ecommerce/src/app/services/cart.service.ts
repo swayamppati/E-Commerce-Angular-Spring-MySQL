@@ -20,7 +20,19 @@ export class CartService implements OnInit{
   totalQty: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   totalPrice: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
-  constructor() { }
+  storage : Storage = sessionStorage;
+
+  constructor() {
+
+    //read data from storage
+    let data = JSON.parse(this.storage.getItem('cartItems')!);
+
+    //computeTotal based on read data
+    if(data != null) {
+      this.cartItems = data;
+      this.computeTotals();
+    }
+   }
 
   ngOnInit(): void {
     console.log("Cart Service Object Created\n");
@@ -79,5 +91,8 @@ export class CartService implements OnInit{
 
     this.totalQty.next(totalQty);
     this.totalPrice.next(totalPrice);
+
+    console.log(this.cartItems);
+    this.storage.setItem('cartItems', JSON.stringify(this.cartItems));
   }
 }

@@ -5,3 +5,7 @@ a:hover {
 .active-link {
     background-color: #000000 !important;
 }
+
+.btn:hover {
+    background-color: #4433AA !important;
+}

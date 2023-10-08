@@ -16,11 +16,11 @@ import { AddButtonsComponent } from './components/add-buttons/add-buttons.compon
 /**
  * Node Modules
  */
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Routes } from '@angular/router';
+import { Router, RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -37,12 +37,24 @@ import { OKTA_CONFIG, OktaAuthGuard, OktaAuthModule, OktaAuthStateService, OktaC
 import { OktaAuth } from '@okta/okta-auth-js';
 
 import myAppConfig from './config/my-app-config';
+import { MemberPageComponent } from './components/member-page/member-page.component';
 import { LoginStatusService } from './services/login-status.service';
 
 const oktaConfig = myAppConfig.oidc;
 const oktaAuth = new OktaAuth(oktaConfig);
 
+function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector): void {
+  //Use Injector to access any service available within your application
+  const router = injector.get(Router);
+
+  //Redirect the user to your custom login page
+  router.navigate(['/login']);
+}
+
 const routes: Routes = [
+  {path: 'memberpage', component: MemberPageComponent,
+  canActivate: [OktaAuthGuard], data: {onAuthRequest: sendToLoginPage}},
+
   {path: 'login/callback', component: OktaCallbackComponent},
   {path: 'login', component: LoginComponent},
 
@@ -73,6 +85,7 @@ const routes: Routes = [
     CheckoutFormComponent,
     LoginComponent,
     LoginStatusComponent,
+    MemberPageComponent,
 
   ],
   imports: [

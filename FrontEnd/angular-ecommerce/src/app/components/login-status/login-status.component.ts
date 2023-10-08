@@ -15,6 +15,7 @@ export class LoginStatusComponent implements OnInit {
 
   constructor(
     private oktaAuthStateService: OktaAuthStateService,
+    @Inject(OKTA_AUTH) private oktaAuth: OktaAuth,
     private loginStatusService: LoginStatusService
   ) { }
 
